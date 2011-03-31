@@ -27,7 +27,7 @@
     $.fn.autoResize = function(options) {
         var settings = {
             maxLength: 0,
-            resize: function() {}
+            resize: null
         };
 
         if (options) {
@@ -69,7 +69,6 @@
             })();
 
             var adjustHeightIfNeeded = function() {
-                var $textarea = $(this);
                 var text = $textarea.val();
 
                 $slave
