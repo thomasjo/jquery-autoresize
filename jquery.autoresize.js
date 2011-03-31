@@ -40,7 +40,7 @@
             });
 
             var minHeight = $textarea.height();
-            var previousHeight = 0;
+            var previousHeight = minHeight;
             var $slave = (function() {
                 var $clone = $textarea.clone()
                     .attr("tab-index", -1)
