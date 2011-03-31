@@ -26,7 +26,6 @@
 (function($) {
     $.fn.autoResize = function(options) {
         var settings = {
-            maxLength: 0,
             resize: null
         };
 
@@ -68,7 +67,7 @@
                 if (height === previousHeight) return;
                 previousHeight = height;
 
-                if (settings.resize) {
+                if ($.isFunction(settings.resize)) {
                     settings.resize.call(this);
                 }
 
