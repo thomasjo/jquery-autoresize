@@ -53,18 +53,6 @@
                         "left": -9999
                     });
 
-                var cssPropertyWhitelist = [
-                    "width",
-                    "height",
-                    "line-height",
-                    "word-spacing",
-                    "letter-spacing"
-                ];
-
-                for (propertyName in cssPropertyWhitelist) {
-                    $clone.css(propertyName, $textarea.css(propertyName));
-                }
-
                 return $clone.insertBefore($textarea);
             })();
 
