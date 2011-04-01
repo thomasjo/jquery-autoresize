@@ -26,7 +26,8 @@
 (function($) {
     $.fn.autoResize = function(options) {
         var settings = {
-            resize: null
+            resize: null,
+            animateOptions: { duration: 100 }
         };
 
         if (options) {
@@ -71,7 +72,12 @@
                     settings.resize.call(this);
                 }
 
-                $textarea.height(height);
+                if (settings.animateOptions) {
+                    $textarea.animate({ "height": height }, settings.animateOptions);
+                }
+                else {
+                    $textarea.height(height);
+                }
             };
 
             $textarea
