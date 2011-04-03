@@ -84,5 +84,7 @@
                 .unbind(".autoResize")
                 .bind("keyup.autoResize keydown.autoResize change.autoResize", adjustHeightIfNeeded);
         });
+
+        return this;
     };
 })(jQuery);
