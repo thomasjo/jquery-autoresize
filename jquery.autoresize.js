@@ -24,67 +24,67 @@
  */
 
 (function($) {
-    $.fn.autoResize = function(options) {
-        var settings = {
-            resize: null,
-            animateOptions: { duration: 100 }
-        };
+$.fn.autoResize = function(options) {
+  var settings = {
+      resize: null
+    , animateOptions: { duration: 100 }
+  }
 
-        if (options) {
-            $.extend(settings, options);
-        }
+  if (options) {
+    $.extend(settings, options)
+  }
 
-        this.filter("textarea").each(function() {
-            var $textarea = $(this).css({
-                "overflow-y": "hidden",
-                "resize": "none"
-            });
+  this.filter("textarea").each(function() {
+    var $textarea = $(this).css({
+        "overflow-y": "hidden"
+      , "resize": "none"
+    })
 
-            var minHeight = $textarea.height();
-            var previousHeight = minHeight;
-            var $slave = (function() {
-                var $clone = $textarea.clone()
-                    .attr("tab-index", -1)
-                    .removeAttr("id")
-                    .removeAttr("name")
-                    .css({
-                        "position": "absolute",
-                        "top": 0,
-                        "left": -9999
-                    });
+    var minHeight = $textarea.height()
+      , previousHeight = minHeight
+      , $slave = (function() {
+          var $clone = $textarea.clone()
+            .attr("tab-index", -1)
+            .removeAttr("id")
+            .removeAttr("name")
+            .css({
+                "position": "absolute"
+              , "top": 0
+              , "left": -9999
+            })
 
-                return $clone.insertBefore($textarea);
-            })();
+          return $clone.insertBefore($textarea)
+        })()
 
-            var adjustHeightIfNeeded = function() {
-                var text = $textarea.val();
+    var adjustHeightIfNeeded = function() {
+      var text = $textarea.val()
 
-                $slave
-                    .height(0)
-                    .val(text)
-                    .scrollTop(9999);
+      $slave
+        .height(0)
+        .val(text)
+        .scrollTop(9999)
 
-                var height = Math.max(minHeight, $slave.scrollTop());
-                if (height === previousHeight) return;
-                previousHeight = height;
+      var height = Math.max(minHeight, $slave.scrollTop())
+      if (height === previousHeight) return
+      previousHeight = height
 
-                if ($.isFunction(settings.resize)) {
-                    settings.resize.call(this);
-                }
+      if ($.isFunction(settings.resize)) {
+        settings.resize.call(this)
+      }
 
-                if (settings.animateOptions) {
-                    $textarea.animate({ "height": height }, settings.animateOptions);
-                }
-                else {
-                    $textarea.height(height);
-                }
-            };
+      if (settings.animateOptions) {
+        $textarea.animate({ "height": height }, settings.animateOptions)
+      }
+      else {
+        $textarea.height(height)
+      }
+    }
 
-            $textarea
-                .unbind(".autoResize")
-                .bind("keyup.autoResize keydown.autoResize change.autoResize", adjustHeightIfNeeded);
-        });
+    $textarea
+      .unbind(".resize")
+      .bind("keyup.resize keydown.resize change.resize", adjustHeightIfNeeded)
+  })
 
-        return this;
-    };
-})(jQuery);
+  return this
+}
+})(jQuery)
