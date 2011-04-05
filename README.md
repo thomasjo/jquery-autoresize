@@ -1,4 +1,4 @@
-# jquery.autoResize
+# jQuery.autoResize
 
 
 ## What is this thing?
