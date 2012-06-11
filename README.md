@@ -3,11 +3,13 @@ A simple plugin for making textarea elements capable of being resized automatica
 
 
 ## Usage
+
     $(function() {
       $("textarea").autoResize()
     })
 
-Or if you prefer to have the height adjustment happen without animation
+Or if you prefer to have the height adjustment happen without animation:
+
     $(function() {
       $("textarea").autoResize({ animateOptions: null })
     })
