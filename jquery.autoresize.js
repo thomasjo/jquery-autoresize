@@ -23,68 +23,71 @@
  * THE SOFTWARE.
  */
 
-(function($) {
-$.fn.autoResize = function(options) {
-  var settings = {
-      resize: null
-    , animateOptions: { duration: 100 }
-  }
+;(function($) {
+    'use strict';
 
-  if (options) {
-    $.extend(settings, options)
-  }
+    $.fn.autoResize = function(options) {
+        var settings = {
+            resize: null,
+            animateOptions: { duration: 100 }
+        };
 
-  this.filter("textarea").each(function() {
-    var $textarea = $(this).css({
-        "overflow-y": "hidden"
-      , "resize": "none"
-    })
+        if (options) {
+            $.extend(settings, options);
+        }
 
-    var minHeight = $textarea.height()
-      , previousHeight = minHeight
-      , $slave = (function() {
-          var $clone = $textarea.clone()
-            .attr("tab-index", -1)
-            .removeAttr("id")
-            .removeAttr("name")
-            .css({
-                "position": "absolute"
-              , "top": 0
-              , "left": -9999
-            })
+        this.filter("textarea").each(function() {
+            var $textarea = $(this).css({
+                "overflow-y": "hidden",
+                "resize": "none"
+            });
 
-          return $clone.insertBefore($textarea)
-        })()
+            var minHeight = $textarea.height(),
+                previousHeight = minHeight,
+                $slave = (function() {
+                    var $clone = $textarea.clone()
+                        .attr("tab-index", -1)
+                        .removeAttr("id")
+                        .removeAttr("name")
+                        .css({
+                            "position": "absolute",
+                            "top": 0,
+                            "left": -9999
+                        });
 
-    var adjustHeightIfNeeded = function() {
-      var text = $textarea.val()
+                    return $clone.insertBefore($textarea);
+                })();
 
-      $slave
-        .height(0)
-        .val(text)
-        .scrollTop(9999)
+            var adjustHeightIfNeeded = function() {
+                var text = $textarea.val(),
+                    height;
 
-      var height = Math.max(minHeight, $slave.scrollTop())
-      if (height === previousHeight) return
-      previousHeight = height
+                $slave
+                    .height(0)
+                    .val(text)
+                    .scrollTop(9999);
 
-      if ($.isFunction(settings.resize)) {
-        settings.resize.call(this)
-      }
+                height = Math.max(minHeight, $slave.scrollTop());
+                if (height === previousHeight) { return; }
+                previousHeight = height;
 
-      if (settings.animateOptions) {
-        $textarea.animate({ "height": height }, settings.animateOptions)
-      }
-      else {
-        $textarea.height(height)
-      }
-    }
+                if ($.isFunction(settings.resize)) {
+                    settings.resize.call(this);
+                }
 
-    $textarea
-      .unbind(".resize")
-      .bind("keyup.resize keydown.resize change.resize", adjustHeightIfNeeded)
-  })
+                if (settings.animateOptions) {
+                    $textarea.animate({ "height": height }, settings.animateOptions);
+                }
+                else {
+                    $textarea.height(height);
+                }
+            };
 
-  return this
-}
-})(jQuery)
+            $textarea
+                .unbind(".resize")
+                .bind("keyup.resize keydown.resize change.resize", adjustHeightIfNeeded);
+        });
+
+        return this;
+    };
+})(jQuery);
