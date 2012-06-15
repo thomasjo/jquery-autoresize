@@ -53,23 +53,39 @@
                 if (height === previousHeight) { return; }
                 previousHeight = height;
 
-                if ($.isFunction(settings.resize)) {
+                if (typeof settings.resize === "function") {
                     settings.resize.call(this);
                 }
 
-                if (settings.animateOptions) {
-                    $textarea.animate({ "height": height }, settings.animateOptions);
-                }
-                else {
-                    $textarea.height(height);
-                }
+                $textarea.height(height);
             };
 
-            $textarea
-                .unbind(".resize")
-                .bind("keyup.resize keydown.resize change.resize", adjustHeightIfNeeded);
+            $textarea.unbind(".resize");
+
+            if (supportsInputEvent()) {
+                $textarea.bind("input.resize", adjustHeightIfNeeded);
+            }
+            else if (supportsPropertyChangedEvent()) {
+                $textarea.bind("propertychanged.resize", adjustHeightIfNeeded);
+            }
+            else {
+                $textarea.bind("keypress.resize", adjustHeightIfNeeded);
+            }
         });
 
         return this;
     };
+
+    function supportsInputEvent() {
+        if ("oninput" in document.body) {
+            return true;
+        }
+
+        document.body.setAttribute("oninput", "return");
+        return typeof document.body.oninput === "function";
+    }
+
+    function supportsPropertyChangedEvent() {
+        return "onpropertychanged" in document.body;
+    }
 })(jQuery);
