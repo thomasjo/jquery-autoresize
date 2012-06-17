@@ -5,12 +5,15 @@
  * Copyright (c) 2011 Thomas Johansen | https://raw.github.com/thomasjo/jquery-autoresize/master/LICENSE.txt
  */
 
-;(function($) {
+;(function() {
     'use strict';
 
-    var defaults = {
-        resize: $.noop
-    };
+    var root = this,
+        $ = root.$,
+
+        defaults = {
+            resize: $.noop
+        };
 
     $.fn.autoResize = function(options) {
         var settings = $.extend({}, defaults, options);
@@ -85,4 +88,5 @@
     function supportsPropertyChangedEvent() {
         return 'onpropertychanged' in document.body;
     }
-})(jQuery);
+
+}).call(this);
