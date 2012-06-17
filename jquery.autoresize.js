@@ -1,5 +1,5 @@
 /*!
- * jQuery textarea autoResize plugin v0.1.1
+ * jQuery textarea autoResize plugin v0.2.0
  * http://github.com/thomasjo/jquery-autoresize
  *
  * Copyright (c) 2011 Thomas Johansen | https://raw.github.com/thomasjo/jquery-autoresize/master/LICENSE.txt
