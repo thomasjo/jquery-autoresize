@@ -9,7 +9,7 @@
     'use strict';
 
     var defaults = {
-        resize: null
+        resize: $.noop
     };
 
     $.fn.autoResize = function(options) {
@@ -48,13 +48,12 @@
                         .scrollTop(9999);
 
                     height = Math.max(minHeight, $slave.scrollTop());
-                    if (height === previousHeight) { return; }
-                    previousHeight = height;
-
-                    if (typeof settings.resize === 'function') {
-                        settings.resize.call(this);
+                    if (height === previousHeight) {
+                        return;
                     }
 
+                    previousHeight = height;
+                    settings.resize.call(this);
                     $textarea.height(height);
                 };
 
