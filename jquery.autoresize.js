@@ -18,23 +18,23 @@
             $.extend(settings, options);
         }
 
-        this.filter("textarea").each(function() {
+        this.filter('textarea').each(function() {
             var $textarea = $(this).css({
-                "overflow-y": "hidden",
-                "resize": "none"
+                'overflow-y': 'hidden',
+                'resize': 'none'
             });
 
             var minHeight = $textarea.height(),
                 previousHeight = minHeight,
                 $slave = (function() {
                     var $clone = $textarea.clone()
-                        .attr("tab-index", -1)
-                        .removeAttr("id")
-                        .removeAttr("name")
+                        .attr('tab-index', -1)
+                        .removeAttr('id')
+                        .removeAttr('name')
                         .css({
-                            "position": "absolute",
-                            "top": 0,
-                            "left": -9999
+                            'position': 'absolute',
+                            'top': 0,
+                            'left': -9999
                         });
 
                     return $clone.insertBefore($textarea);
@@ -53,23 +53,23 @@
                 if (height === previousHeight) { return; }
                 previousHeight = height;
 
-                if (typeof settings.resize === "function") {
+                if (typeof settings.resize === 'function') {
                     settings.resize.call(this);
                 }
 
                 $textarea.height(height);
             };
 
-            $textarea.unbind(".resize");
+            $textarea.unbind('.resize');
 
             if (supportsInputEvent()) {
-                $textarea.bind("input.resize", adjustHeightIfNeeded);
+                $textarea.bind('input.resize', adjustHeightIfNeeded);
             }
             else if (supportsPropertyChangedEvent()) {
-                $textarea.bind("propertychanged.resize", adjustHeightIfNeeded);
+                $textarea.bind('propertychanged.resize', adjustHeightIfNeeded);
             }
             else {
-                $textarea.bind("keypress.resize", adjustHeightIfNeeded);
+                $textarea.bind('keypress.resize', adjustHeightIfNeeded);
             }
         });
 
@@ -77,15 +77,15 @@
     };
 
     function supportsInputEvent() {
-        if ("oninput" in document.body) {
+        if ('oninput' in document.body) {
             return true;
         }
 
-        document.body.setAttribute("oninput", "return");
-        return typeof document.body.oninput === "function";
+        document.body.setAttribute('oninput', 'return');
+        return typeof document.body.oninput === 'function';
     }
 
     function supportsPropertyChangedEvent() {
-        return "onpropertychanged" in document.body;
+        return 'onpropertychanged' in document.body;
     }
 })(jQuery);
