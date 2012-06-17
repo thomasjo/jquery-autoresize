@@ -8,15 +8,12 @@
 ;(function($) {
     'use strict';
 
-    $.fn.autoResize = function(options) {
-        var settings = {
-            resize: null,
-            animateOptions: { duration: 100 }
-        };
+    var defaults = {
+        resize: null
+    };
 
-        if (options) {
-            $.extend(settings, options);
-        }
+    $.fn.autoResize = function(options) {
+        var settings = $.extend({}, defaults, options);
 
         this.filter('textarea').each(function() {
             var $textarea = $(this).css({
