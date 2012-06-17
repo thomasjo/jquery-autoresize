@@ -20,11 +20,11 @@
 
         this.filter('textarea').each(function() {
             var $textarea = $(this).css({
-                'overflow-y': 'hidden',
-                'resize': 'none'
-            });
+                    'overflow-y': 'hidden',
+                    'resize': 'none'
+                }),
 
-            var minHeight = $textarea.height(),
+                minHeight = $textarea.height(),
                 previousHeight = minHeight,
 
                 $slave = (function() {
