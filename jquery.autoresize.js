@@ -71,6 +71,8 @@
             else {
                 $textarea.bind('keypress.resize', adjustHeightIfNeeded);
             }
+
+            adjustHeightIfNeeded();
         });
 
         return this;
