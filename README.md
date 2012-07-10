@@ -3,7 +3,8 @@ A simple plugin for making textarea elements capable of being resized automatica
 
 
 ## Usage
-
-    $(function() {
-      $("textarea").autoResize()
-    })
+```javascript
+$(function() {
+    $("textarea").autoResize()
+})
+```
