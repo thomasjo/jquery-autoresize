@@ -29,7 +29,7 @@
 
                 $slave = (function() {
                     var $clone = $textarea.clone()
-                        .attr('tab-index', -1)
+                        .attr('tabindex', -1)
                         .removeAttr('id')
                         .removeAttr('name')
                         .css({
@@ -46,6 +46,7 @@
                         height;
 
                     $slave
+                        .width($textarea.width())
                         .height(0)
                         .val(text)
                         .scrollTop(9999);
@@ -65,8 +66,8 @@
             if (supportsInputEvent()) {
                 $textarea.bind('input.resize', adjustHeightIfNeeded);
             }
-            else if (supportsPropertyChangedEvent()) {
-                $textarea.bind('propertychanged.resize', adjustHeightIfNeeded);
+            else if (supportsPropertyChangeEvent()) {
+                $textarea.bind('propertychange.resize', adjustHeightIfNeeded);
             }
             else {
                 $textarea.bind('keypress.resize', adjustHeightIfNeeded);
@@ -84,11 +85,14 @@
         }
 
         document.body.setAttribute('oninput', 'return');
-        return typeof document.body.oninput === 'function';
+
+        var supports = typeof document.body.oninput === 'function';
+        delete document.body.oninput;
+        return supports;
     }
 
-    function supportsPropertyChangedEvent() {
-        return 'onpropertychanged' in document.body;
+    function supportsPropertyChangeEvent() {
+        return 'onpropertychange' in document.body;
     }
 
 }).call(this);
